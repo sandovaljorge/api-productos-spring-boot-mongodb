@@ -3,6 +3,8 @@ package com.jscode.nosql.controller;
 import com.jscode.nosql.entity.Product;
 import com.jscode.nosql.models.ProductDto;
 import com.jscode.nosql.service.ProductService;
+import com.jscode.nosql.utils.exception.AttributeException;
+import com.jscode.nosql.utils.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,22 +27,22 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getOne(@PathVariable("id") int id){
+    public ResponseEntity<Product> getOne(@PathVariable("id") int id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.productService.getOne(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody ProductDto dto){
+    public ResponseEntity<Product> save(@RequestBody ProductDto dto) throws AttributeException {
         return new ResponseEntity<>(this.productService.save(dto), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable("id") int id,@RequestBody ProductDto dto){
+    public ResponseEntity<Product> update(@PathVariable("id") int id,@RequestBody ProductDto dto) throws ResourceNotFoundException, AttributeException {
         return new ResponseEntity<>(this.productService.update(id, dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> delete(@PathVariable("id") int id){
+    public ResponseEntity<Product> delete(@PathVariable("id") int id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.productService.delete(id), HttpStatus.OK);
     }
 }
