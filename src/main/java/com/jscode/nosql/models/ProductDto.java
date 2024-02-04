@@ -1,8 +1,13 @@
 package com.jscode.nosql.models;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 public class ProductDto {
 
+    @NotBlank(message = "product name is mandatory")
     private String name;
+    @Min(value = 1, message = "product price is mandatory")
     private int price;
 
     public ProductDto() {
